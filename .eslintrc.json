@@ -1,0 +1,29 @@
+{
+  "extends": [
+    "airbnb",
+    "airbnb-typescript",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "sourceType": "module",
+    "project": [
+      "./tsconfig.json"
+    ]
+  },
+  "plugins": [
+    "react",
+    "jest"
+  ],
+  "rules": {
+    "space-before-function-paren": [
+      "error",
+      "never"
+    ],
+    "react/prop-types": "off",
+    "react/react-in-jsx-scope": "off",
+    "jest/no-disabled-tests": "warn",
+    "jest/no-focused-tests": "error",
+    "jest/no-identical-title": "error"
+  }
+}
