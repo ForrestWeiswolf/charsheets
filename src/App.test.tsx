@@ -1,9 +1,15 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import App from './App';
 
-xit('renders learn react link', () => {
+it('has a "Name" input you can type in', () => {
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+  const nameInput = screen.getByLabelText("Name")
+  expect(nameInput).toBeInTheDocument()
+
+  fireEvent.focus(nameInput)
+  fireEvent.change(nameInput, {target: {value: "Chalconte bar Irrisun"}})
+  fireEvent.blur(nameInput)
+
+  expect(nameInput).toHaveValue('Chalconte bar Irrisun')
 });
