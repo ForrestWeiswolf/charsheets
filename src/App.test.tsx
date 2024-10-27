@@ -1,5 +1,7 @@
 import React from 'react';
-import { fireEvent, render, screen } from '@testing-library/react';
+import {
+  fireEvent, render, screen, within,
+} from '@testing-library/react';
 import App from './App';
 
 const typeInInput = (input: HTMLElement, value: string) => {
@@ -50,5 +52,74 @@ describe('ability scores', () => {
 
     expect(screen.queryByText('+3')).not.toBeInTheDocument();
     expect(screen.getByText('-1')).toBeInTheDocument();
+  });
+});
+
+describe('saves', () => {
+  it('has inputs for saves', () => {
+    render(<App />);
+    ['Fort', 'Ref', 'Will'].forEach((save) => {
+      expect(screen.getByLabelText(save)).toBeInTheDocument;
+    });
+  });
+
+  it('has inputs for base saves', () => {
+    render(<App />);
+    ['Fort', 'Ref', 'Will'].forEach((save) => {
+      const baseSave = within(screen.getByLabelText(save).parentElement as HTMLElement).getByLabelText('Base');
+      expect(baseSave).toBeInTheDocument();
+    });
+  });
+
+  it('allows base saves to be changed', () => {
+    render(<App />);
+    const baseFort = within(screen.getByLabelText('Fort').parentElement as HTMLElement).getByLabelText('Base');
+
+    typeInInput(baseFort, '7');
+
+    expect(baseFort).toHaveValue('7');
+  });
+
+  it('changes the total save when a base save changes', () => {
+    render(<App />);
+    const baseFort = within(screen.getByLabelText('Fort').parentElement as HTMLElement).getByLabelText('Base');
+    const fort = screen.getByLabelText('Fort');
+
+    typeInInput(baseFort, '7');
+
+    expect(fort).toHaveValue('7');
+  });
+
+  it('changes total Fort save when Con ability score changes', () => {
+    render(<App />);
+    const baseSave = within(screen.getByLabelText('Fort').parentElement as HTMLElement).getByLabelText('Base');
+    const save = screen.getByLabelText('Fort');
+    const abilityScore = screen.getByLabelText('Con');
+
+    typeInInput(baseSave, '7');
+    typeInInput(abilityScore, '14');
+    expect(save).toHaveValue('9');
+  });
+
+  it('changes total Ref save when Dex ability score changes', () => {
+    render(<App />);
+    const baseSave = within(screen.getByLabelText('Ref').parentElement as HTMLElement).getByLabelText('Base');
+    const save = screen.getByLabelText('Ref');
+    const abilityScore = screen.getByLabelText('Dex');
+
+    typeInInput(baseSave, '3');
+    typeInInput(abilityScore, '7');
+    expect(save).toHaveValue('1');
+  });
+
+  it('changes total Will save when Wis ability score changes', () => {
+    render(<App />);
+    const baseSave = within(screen.getByLabelText('Will').parentElement as HTMLElement).getByLabelText('Base');
+    const save = screen.getByLabelText('Will');
+    const abilityScore = screen.getByLabelText('Wis');
+
+    typeInInput(baseSave, '7');
+    typeInInput(abilityScore, '17');
+    expect(save).toHaveValue('10');
   });
 });

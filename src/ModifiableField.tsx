@@ -5,19 +5,20 @@ type ModifiableFieldProps = {
   value: string, formula: string, name: string,
   setFormula: (formula: string) => void,
   numeric?: boolean
+  id?: string
 };
 
 function ModifiableField({
-  value, formula, name, setFormula, numeric,
+  value, formula, name, setFormula, numeric = false, id = name,
 }: ModifiableFieldProps) {
   const [focused, setFocused] = useState(false);
   const [editedFormula, setEditedFormula] = useState(formula);
 
   return (
     <>
-      <label htmlFor={`${name}-input`}>{name}</label>
+      <label htmlFor={`${id}-input`}>{name}</label>
       <input
-        id={`${name}-input`}
+        id={`${id}-input`}
         type="text"
         className={numeric ? 'modifiable-field numeric' : 'modifiable-field'}
         value={focused ? editedFormula : value}
@@ -31,7 +32,5 @@ function ModifiableField({
     </>
   );
 }
-
-ModifiableField.defaultProps = { numeric: false };
 
 export default ModifiableField;
