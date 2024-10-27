@@ -77,6 +77,4 @@ describe('ModifiableField', () => {
 
     expect(spy).toBeCalledWith('10');
   });
-
-  // TODO: calls onChange on blur?
 });

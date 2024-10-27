@@ -8,7 +8,7 @@ type ModifiableFieldProps = {
 };
 
 function ModifiableField({
-  value, formula, name, setFormula, numeric=false
+  value, formula, name, setFormula, numeric,
 }: ModifiableFieldProps) {
   const [focused, setFocused] = useState(false);
   const [editedFormula, setEditedFormula] = useState(formula);
@@ -31,5 +31,7 @@ function ModifiableField({
     </>
   );
 }
+
+ModifiableField.defaultProps = { numeric: false };
 
 export default ModifiableField;
