@@ -28,6 +28,7 @@ function App() {
           (Object.keys(fields.abilityScores)).map((scoreName) => (
             <div key={scoreName}>
               <ModifiableField
+                numeric
                 value={fields.abilityScores[scoreName].toString()}
                 formula={fields.abilityScores[scoreName].toString()}
                 name={scoreName}
