@@ -11,7 +11,7 @@ function ModifiableField({
   const [editedFormula, setEditedFormula] = useState(formula);
 
   return (
-    <div>
+    <>
       <label htmlFor={`${name}-input`}>{name}</label>
       <input
         id={`${name}-input`}
@@ -24,7 +24,7 @@ function ModifiableField({
           setFormula(editedFormula);
         }}
       />
-    </div>
+    </>
   );
 }
 

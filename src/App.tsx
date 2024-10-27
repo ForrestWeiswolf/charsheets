@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './App.css';
+import { formatModifier, modFromAbilityScore } from './utils';
 import ModifiableField from './ModifiableField';
 
 function App() {
@@ -24,21 +25,23 @@ function App() {
       <div>
         {
           // TODO: check if there's a good way to make sure the order is correct
-          (Object.keys(fields.abilityScores)).map((score) => (
-            <ModifiableField
-              key={score}
-              value={fields.abilityScores[score].toString()}
-              formula={fields.abilityScores[score].toString()}
-              name={score}
-              setFormula={(f) => {
-                setFields({
-                  ...fields,
-                  abilityScores: {
-                    ...fields.abilityScores, [score]: parseInt(f, 10),
-                  },
-                });
-              }}
-            />
+          (Object.keys(fields.abilityScores)).map((scoreName) => (
+            <div key={scoreName}>
+              <ModifiableField
+                value={fields.abilityScores[scoreName].toString()}
+                formula={fields.abilityScores[scoreName].toString()}
+                name={scoreName}
+                setFormula={(f) => {
+                  setFields({
+                    ...fields,
+                    abilityScores: {
+                      ...fields.abilityScores, [scoreName]: parseInt(f, 10),
+                    },
+                  });
+                }}
+              />
+              <b>{formatModifier(modFromAbilityScore(fields.abilityScores[scoreName]))}</b>
+            </div>
           ))
         }
       </div>

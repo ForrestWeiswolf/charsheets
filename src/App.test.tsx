@@ -36,4 +36,19 @@ describe('ability scores', () => {
 
     expect(strInput).toHaveValue('13');
   });
+
+  it('shows the ability score modifiers', () => {
+    render(<App />);
+
+    const strInput = screen.getByLabelText('Str');
+
+    typeInInput(strInput, '17');
+
+    expect(screen.getByText('+3')).toBeInTheDocument();
+
+    typeInInput(strInput, '8');
+
+    expect(screen.queryByText('+3')).not.toBeInTheDocument();
+    expect(screen.getByText('-1')).toBeInTheDocument();
+  });
 });
