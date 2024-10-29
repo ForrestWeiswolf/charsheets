@@ -122,4 +122,26 @@ describe('saves', () => {
     typeInInput(abilityScore, '17');
     expect(save).toHaveValue('10');
   });
+
+  it('shows Con + base_Fort as the formula for total Ref', () => {
+    render(<App />);
+
+    fireEvent.focus(screen.getByLabelText('Fort'))
+    expect(screen.getByLabelText('Fort')).toHaveValue('Con+base_Fort');
+  });
+
+  it('shows Dex + base_Ref as the formula for total Ref', () => {
+    render(<App />);
+
+    fireEvent.focus(screen.getByLabelText('Ref'))
+    expect(screen.getByLabelText('Ref')).toHaveValue('Dex+base_Ref');
+  });
+
+
+  it('shows Wis + base_Will as the formula for total Will', () => {
+    render(<App />);
+
+    fireEvent.focus(screen.getByLabelText('Will'))
+    expect(screen.getByLabelText('Will')).toHaveValue('Wis+base_Will');
+  });
 });

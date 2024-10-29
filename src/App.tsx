@@ -65,7 +65,7 @@ function App() {
                 (fields.saves[name].base + modFromAbilityScore(fields.abilityScores[abilityScore])).toString()
               }
               formula={
-                (fields.saves[name].base + modFromAbilityScore(fields.abilityScores[abilityScore])).toString()
+                `${abilityScore}+base_${name}`
               }
               name={name}
               setFormula={() => { }}
@@ -76,7 +76,7 @@ function App() {
               value={fields.saves[name].base.toString()}
               formula={fields.saves[name].base.toString()}
               name="Base"
-              id={`base-${name}`}
+              id={`base_${name}`}
               setFormula={(f) => {
                 setFields({
                   ...fields,
