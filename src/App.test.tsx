@@ -59,7 +59,7 @@ describe('saves', () => {
   it('has inputs for saves', () => {
     render(<App />);
     ['Fort', 'Ref', 'Will'].forEach((save) => {
-      expect(screen.getByLabelText(save)).toBeInTheDocument;
+      expect(screen.getByLabelText(save)).toBeInTheDocument();
     });
   });
 
@@ -126,22 +126,21 @@ describe('saves', () => {
   it('shows Con + base_Fort as the formula for total Ref', () => {
     render(<App />);
 
-    fireEvent.focus(screen.getByLabelText('Fort'))
+    fireEvent.focus(screen.getByLabelText('Fort'));
     expect(screen.getByLabelText('Fort')).toHaveValue('Con+base_Fort');
   });
 
   it('shows Dex + base_Ref as the formula for total Ref', () => {
     render(<App />);
 
-    fireEvent.focus(screen.getByLabelText('Ref'))
+    fireEvent.focus(screen.getByLabelText('Ref'));
     expect(screen.getByLabelText('Ref')).toHaveValue('Dex+base_Ref');
   });
-
 
   it('shows Wis + base_Will as the formula for total Will', () => {
     render(<App />);
 
-    fireEvent.focus(screen.getByLabelText('Will'))
+    fireEvent.focus(screen.getByLabelText('Will'));
     expect(screen.getByLabelText('Will')).toHaveValue('Wis+base_Will');
   });
 });

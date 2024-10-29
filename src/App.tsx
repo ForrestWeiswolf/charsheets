@@ -57,37 +57,41 @@ function App() {
       </div>
 
       <div id="saves">
-        {saves.map(({ name, abilityScore }) => (
-          <div key={name}>
-            <ModifiableField
-              numeric
-              value={
-                (fields.saves[name].base + modFromAbilityScore(fields.abilityScores[abilityScore])).toString()
-              }
-              formula={
-                `${abilityScore}+base_${name}`
-              }
-              name={name}
-              setFormula={() => { }}
-            />
+        {saves.map(({ name, abilityScore }) => {
+          const baseSave = fields.saves[name].base;
+          const abilityMod = modFromAbilityScore(fields.abilityScores[abilityScore]);
+          return (
+            <div key={name}>
+              <ModifiableField
+                numeric
+                value={
+                  (baseSave + abilityMod).toString()
+                }
+                formula={
+                  `${abilityScore}+base_${name}`
+                }
+                name={name}
+                setFormula={() => { }}
+              />
 
-            <ModifiableField
-              numeric
-              value={fields.saves[name].base.toString()}
-              formula={fields.saves[name].base.toString()}
-              name="Base"
-              id={`base_${name}`}
-              setFormula={(f) => {
-                setFields({
-                  ...fields,
-                  saves: {
-                    ...fields.saves, [name]: { base: parseInt(f, 10), total: 0 },
-                  },
-                });
-              }}
-            />
-          </div>
-        ))}
+              <ModifiableField
+                numeric
+                value={baseSave.toString()}
+                formula={baseSave.toString()}
+                name="Base"
+                id={`base_${name}`}
+                setFormula={(f) => {
+                  setFields({
+                    ...fields,
+                    saves: {
+                      ...fields.saves, [name]: { base: parseInt(f, 10), total: 0 },
+                    },
+                  });
+                }}
+              />
+            </div>
+          );
+        })}
       </div>
     </div>
   );
