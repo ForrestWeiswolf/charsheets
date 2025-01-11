@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './App.css';
 import { formatModifier, modFromAbilityScore } from './utils';
 import ModifiableField from './ModifiableField';
+import Save from './Save';
 
 const saves = [
   { name: 'Fort', abilityScore: 'Con' },
@@ -17,7 +18,7 @@ const defaultState = {
   saves: {
     Fort: { base: 0, total: 0 }, Ref: { base: 0, total: 0 }, Will: { base: 0, total: 0 },
   } as Record<string, { base: number, total: number }>,
-}
+};
 
 const App = () => {
   const [fields, setFields] = useState(defaultState);
@@ -45,7 +46,8 @@ const App = () => {
                 name={scoreName}
                 setFormula={(f) => {
                   setFields({
-                    ...fields, abilityScores: {
+                    ...fields,
+                    abilityScores: {
                       ...fields.abilityScores, [scoreName]: parseInt(f, 10),
                     },
                   });
@@ -58,38 +60,22 @@ const App = () => {
       </div>
 
       <div id="saves">
-        {saves.map(({ name, abilityScore }) => {
-          const baseSave = fields.saves[name].base;
-          const abilityMod = modFromAbilityScore(fields.abilityScores[abilityScore]);
-          return (
-            <div key={name}>
-              <ModifiableField
-                numeric
-                value={(baseSave + abilityMod).toString()}
-                formula={
-                  `${abilityScore}+base_${name}`
-                }
-                name={name}
-                setFormula={() => { }}
-              />
-
-              <ModifiableField
-                numeric
-                value={baseSave.toString()}
-                formula={baseSave.toString()}
-                name="Base"
-                id={`base_${name}`}
-                setFormula={(f) => {
-                  setFields({
-                    ...fields, saves: {
-                      ...fields.saves, [name]: { base: parseInt(f, 10), total: 0 },
-                    },
-                  });
-                }}
-              />
-            </div>
-          );
-        })}
+        {saves.map(({ name, abilityScore }) => (
+          <Save
+            name={name}
+            baseSave={fields.saves[name].base}
+            abilityScoreName={abilityScore}
+            abilityScoreValue={fields.abilityScores[abilityScore]}
+            setBaseSave={(baseSave: number) => {
+              setFields({
+                ...fields,
+                saves: {
+                  ...fields.saves, [name]: { base: baseSave, total: 0 },
+                },
+              });
+            }}
+          />
+        ))}
       </div>
     </div>
   );
