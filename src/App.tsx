@@ -9,16 +9,18 @@ const saves = [
   { name: 'Will', abilityScore: 'Wis' },
 ];
 
-function App() {
-  const [fields, setFields] = useState({
-    name: '',
-    abilityScores: {
-      Str: 10, Dex: 10, Con: 10, Int: 10, Wis: 10, Cha: 10,
-    } as Record<string, number>,
-    saves: {
-      Fort: { base: 0, total: 0 }, Ref: { base: 0, total: 0 }, Will: { base: 0, total: 0 },
-    } as Record<string, { base: number, total: number }>,
-  });
+const defaultState = {
+  name: '',
+  abilityScores: {
+    Str: 10, Dex: 10, Con: 10, Int: 10, Wis: 10, Cha: 10,
+  } as Record<string, number>,
+  saves: {
+    Fort: { base: 0, total: 0 }, Ref: { base: 0, total: 0 }, Will: { base: 0, total: 0 },
+  } as Record<string, { base: number, total: number }>,
+}
+
+const App = () => {
+  const [fields, setFields] = useState(defaultState);
 
   return (
     <div className="App">
@@ -43,8 +45,7 @@ function App() {
                 name={scoreName}
                 setFormula={(f) => {
                   setFields({
-                    ...fields,
-                    abilityScores: {
+                    ...fields, abilityScores: {
                       ...fields.abilityScores, [scoreName]: parseInt(f, 10),
                     },
                   });
@@ -64,9 +65,7 @@ function App() {
             <div key={name}>
               <ModifiableField
                 numeric
-                value={
-                  (baseSave + abilityMod).toString()
-                }
+                value={(baseSave + abilityMod).toString()}
                 formula={
                   `${abilityScore}+base_${name}`
                 }
@@ -82,8 +81,7 @@ function App() {
                 id={`base_${name}`}
                 setFormula={(f) => {
                   setFields({
-                    ...fields,
-                    saves: {
+                    ...fields, saves: {
                       ...fields.saves, [name]: { base: parseInt(f, 10), total: 0 },
                     },
                   });
