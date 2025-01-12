@@ -20,7 +20,7 @@ const defaultState = {
   } as Record<string, { base: number, total: number }>,
 };
 
-const App = () => {
+function App() {
   const [fields, setFields] = useState(defaultState);
 
   return (
