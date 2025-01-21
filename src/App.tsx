@@ -63,6 +63,7 @@ function App() {
         {saves.map(({ name, abilityScore }) => (
           <Save
             name={name}
+            key={name}
             baseSave={fields.saves[name].base}
             abilityScoreName={abilityScore}
             abilityScoreValue={fields.abilityScores[abilityScore]}
