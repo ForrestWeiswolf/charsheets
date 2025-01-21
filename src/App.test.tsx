@@ -123,24 +123,24 @@ describe('saves', () => {
     expect(save).toHaveValue('10');
   });
 
-  it('shows Con + base_Fort as the formula for total Ref', () => {
+  it('shows Con + baseFort as the formula for total Ref', () => {
     render(<App />);
 
     fireEvent.focus(screen.getByLabelText('Fort'));
-    expect(screen.getByLabelText('Fort')).toHaveValue('Con+base_Fort');
+    expect(screen.getByLabelText('Fort')).toHaveValue('Con+baseFort');
   });
 
-  it('shows Dex + base_Ref as the formula for total Ref', () => {
+  it('shows Dex + baseRef as the formula for total Ref', () => {
     render(<App />);
 
     fireEvent.focus(screen.getByLabelText('Ref'));
-    expect(screen.getByLabelText('Ref')).toHaveValue('Dex+base_Ref');
+    expect(screen.getByLabelText('Ref')).toHaveValue('Dex+baseRef');
   });
 
-  it('shows Wis + base_Will as the formula for total Will', () => {
+  it('shows Wis + baseWill as the formula for total Will', () => {
     render(<App />);
 
     fireEvent.focus(screen.getByLabelText('Will'));
-    expect(screen.getByLabelText('Will')).toHaveValue('Wis+base_Will');
+    expect(screen.getByLabelText('Will')).toHaveValue('Wis+baseWill');
   });
 });

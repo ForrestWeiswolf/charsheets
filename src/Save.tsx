@@ -21,7 +21,7 @@ function Save({
         numeric
         value={(baseSave + abilityMod).toString()}
         formula={
-        `${abilityScoreName}+base_${name}`
+        `${abilityScoreName}+base${name}`
       }
         name={name}
         setFormula={() => { }}
